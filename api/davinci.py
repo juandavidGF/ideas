@@ -2,6 +2,8 @@ import requests
 import json
 import os
 
+from http.server import BaseHTTPRequestHandler
+
 # Get the API key from the environment variable
 API_KEY = os.environ['DAVINCI_API_KEY']
 
@@ -9,13 +11,12 @@ API_KEY = os.environ['DAVINCI_API_KEY']
 url = 'https://api.davinci.ai/v1/insights'
 
 
-from http.server import BaseHTTPRequestHandler
 
 class handler(BaseHTTPRequestHandler):
-
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type','text/plain')
-        self.end_headers()
-        self.wfile.write('Hello, world!'.encode('utf-8'))
-        return
+	print('API_KEY', API_KEY)
+	def do_GET(self):
+		self.send_response(200)
+		self.send_header('Content-type','text/plain')
+		self.end_headers()
+		self.wfile.write('Hello, world!'.encode('utf-8'))
+		return
