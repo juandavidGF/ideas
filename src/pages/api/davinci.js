@@ -18,6 +18,5 @@ export default async function handler(req, res) {
 		});
 		console.log('davinci#text', completion.data.choices[0].text);
 		res.status(200).json({ message: completion.data.choices[0].text });
-		// res.status(200).json({ test: 'ok' });
 	}
 }

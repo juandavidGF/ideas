@@ -3,12 +3,14 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import React, { useState } from 'react'
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
 	const [response, setResponse] = useState();
+	const { user, error, isLoading } = useUser();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -42,7 +44,10 @@ export default function Home() {
 					<div className="upload-image">
 						{/* <h3>Chat:</h3><br/> */}
 						<input type="text" id="text" name="text"/><br/><br/>
-						<button type="submit">Send</button>
+						{user ? (
+							<button type="submit">Send</button>
+						) : <button href="/api/auth/login" type="submit">Send</button>
+						}
 					</div>
 				</form>
       </main>
