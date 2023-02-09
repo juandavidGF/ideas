@@ -29,4 +29,6 @@ async function handleSubmit() {
     body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
 
+	document.getElementById('prediction').innerText = response.data.choices[0].text;
+
 }
