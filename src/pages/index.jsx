@@ -44,15 +44,20 @@ export default function Home() {
 					: <button href="/api/auth/login">Login</button>
 				}
 				<p>{response}</p>
-				<form onSubmit={handleSubmit}>
-					<div className="upload-image">
-						<input type="text" id="text" name="text"/>
-						{user ? (
+				{user ?
+					(<form onSubmit={handleSubmit}>
+						<div className="upload-image">
+							<input type="text" id="text" name="text"/>
 							<button type="submit">Send</button>
-						) : <button href="/api/auth/login">send</button>
-						}
-					</div>
-				</form>
+						</div>
+					</form>)
+					: (
+						<div>
+							<input type="text" id="text" name="text"/>
+							<button href="/api/auth/login">Send</button>
+						</div>
+					)
+				}
       </main>
     </>
   )
