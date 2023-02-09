@@ -4,14 +4,13 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-
 const openai = new OpenAIApi(configuration);
 
 
 export default async function handler(req, res) {
 	const { body, method } = req;
 
-	if(req.method == "POST") {
+	if(method == "POST") {
 		const completion = await openai.createCompletion({
 			model: "text-davinci-002",
 			prompt: body.prompt,
