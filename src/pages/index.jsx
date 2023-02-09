@@ -49,7 +49,7 @@ export default function Home() {
 						<input type="text" id="text" name="text"/>
 						{user ? (
 							<button type="submit">Send</button>
-						) : <button href="/api/auth/login" type="submit">send</button>
+						) : <button href="/api/auth/login">send</button>
 						}
 					</div>
 				</form>
