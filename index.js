@@ -1,7 +1,7 @@
 url = '/api/davinci'
 
 async function handleSubmit() {
-	const text = document.getElementById('text').value;
+	const prompt = document.getElementById('text').value;
 	if (!text) alert('debe ingresar una oración')
 
 
@@ -10,9 +10,8 @@ async function handleSubmit() {
 		'Access-Control-Allow-Origin':'*',
 		'Access-Control-Allow-Methods':'*'
 	}
-
-	data = {
-		hola: text
+	const data = {
+		prompt: prompt
 	}
 
 	const response = await fetch(url, {
@@ -29,6 +28,10 @@ async function handleSubmit() {
     body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
 
-	document.getElementById('prediction').innerText = response.data.choices[0].text;
+	res2 = await response.json();
+
+	console.log('front#res2', res2);
+
+	document.getElementById('prediction').innerText = res2.message;
 
 }
