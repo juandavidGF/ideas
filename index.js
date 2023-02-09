@@ -1,34 +1,32 @@
-window.addEventListener("load", () => {
-  function sendData() {
-    const XHR = new XMLHttpRequest();
+url = '/api/davinci'
 
-    // Bind the FormData object and the form element
-    const FD = new FormData(form);
+async function handleSubmit() {
+	const text = document.getElementById('text').value;
+	if (!text) alert('debe ingresar una oración')
 
-    // Define what happens on successful data submission
-    XHR.addEventListener("load", (event) => {
-      alert(event.target.responseText);
-    });
 
-    // Define what happens in case of error
-    XHR.addEventListener("error", (event) => {
-      alert('Oops! Something went wrong.');
-    });
+	const headers = {
+		'Access-Control-Allow-Headers': 'Content-Type',
+		'Access-Control-Allow-Origin':'*',
+		'Access-Control-Allow-Methods':'*'
+	}
 
-    // Set up our request
-    XHR.open("POST", "http://localhost:3000/api/davinci");
+	data = {
+		hola: text
+	}
 
-    // The data sent is what the user provided in the form
-    XHR.send(FD);
-  }
-
-  // Get the form element
-  const form = document.getElementById("myForm");
-
-  // Add 'submit' event handler
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    sendData();
+	const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
-});
+
+}

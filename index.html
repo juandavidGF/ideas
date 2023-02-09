@@ -5,16 +5,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>jd-assistant</title>
-	<script src="index.js"></script>
 </head>
 <body>
 	<h1>Your personal assistant</h1>
 	<p>Connect to different channels, whatsapp, slack</p>
 	<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-	<form id="myForm">
-		<label for="myName">Send me your name:</label>
-		<input id="myName" name="name" value="Dominic" />
-		<input type="submit" value="Send Me!" />
-	</form>
+	<div class="container">
+    <p>Ingrese una oración</p>
+    <input id="text" value="hola"/><br/><br/>
+    <button onclick="handleSubmit()">predict</button>
+  </div>
+	<script src="index.js"></script>
 </body>
 </html>
