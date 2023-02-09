@@ -2,13 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-	const [response, setResponse] = useState("");
+	const [response, setResponse] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,10 +37,10 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-				<div>{response}</div>
+				<p>{response}</p>
 				<form onSubmit={handleSubmit}>
 					<div className="upload-image">
-						<h3>Chat:</h3><br/>
+						{/* <h3>Chat:</h3><br/> */}
 						<input type="text" id="text" name="text"/><br/><br/>
 						<button type="submit">Send</button>
 					</div>
