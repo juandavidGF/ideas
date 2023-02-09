@@ -21,8 +21,8 @@ export default function Home() {
 			body: JSON.stringify({ prompt: text }),
 		});
 		const data = await res.json();
-		setResponse(data)
 		console.log('data', data);
+		setResponse(data.message);
 	}
 
   return (
