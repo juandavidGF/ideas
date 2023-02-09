@@ -3,9 +3,25 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const text = e.target.text.value;
+		const res = await fetch('/api/davinci', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ prompt: text }),
+		});
+		const data = await res.json();
+		console.log(data);
+	}
+
   return (
     <>
       <Head>
@@ -18,12 +34,15 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-				<div class="container">
-					<p>Ingrese una oración</p>
-					<textarea id="text" value="hola"></textarea> <br/><br/>
-					<button onclick="handleSubmit()">Send</button>
-					<div id="prediction"></div>
-				</div>
+
+				<form onSubmit={handleSubmit}>
+					<div className="upload-image">
+						<h3>Chat:</h3><br/>
+						<input type="text" id="text" name="text"/><br/><br/>
+						<button type="submit">Send</button>
+					</div>
+				</form>
+				<div></div>
       </main>
     </>
   )
