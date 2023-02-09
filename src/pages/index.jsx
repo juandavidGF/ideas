@@ -39,14 +39,17 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
+				{user ?
+					<div>Logged in as {user.name}</div>
+					: <button href="/api/auth/login">Login</button>
+				}
 				<p>{response}</p>
 				<form onSubmit={handleSubmit}>
 					<div className="upload-image">
-						{/* <h3>Chat:</h3><br/> */}
-						<input type="text" id="text" name="text"/><br/><br/>
+						<input type="text" id="text" name="text"/>
 						{user ? (
 							<button type="submit">Send</button>
-						) : <button href="/api/auth/login" type="submit">Send</button>
+						) : <button href="/api/auth/login" type="submit">send</button>
 						}
 					</div>
 				</form>
