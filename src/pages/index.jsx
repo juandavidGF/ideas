@@ -39,10 +39,6 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-				{user ?
-					<div>Logged in as {user.name}</div>
-					: <button href="/api/auth/login">Login</button>
-				}
 				<p>{response}</p>
 				{user ?
 					(<form onSubmit={handleSubmit}>
