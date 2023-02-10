@@ -51,7 +51,7 @@ export default function Home() {
 					: (
 						<div>
 							<input type="text" id="text" name="text"/>
-							<Link href="/api/auth/login">Send</Link>
+							<Link href="/api/auth/login"><button>Send</button></Link>
 						</div>
 					)
 				}
