@@ -5,13 +5,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client';
+import vmsg from "vmsg";
 
 const inter = Inter({ subsets: ['latin'] })
+
+// const recorder = new vmsg.Recorder({
+//   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm"
+// });
 
 export default function Home() {
 
 	const [response, setResponse] = useState();
 	const { user, error, isLoading } = useUser();
+
+	// const [state, setState] = useState({
+	// 	isLoading: false,
+	// 	isRecording: false,
+	// 	recordings: []
+	// });
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -26,6 +37,30 @@ export default function Home() {
 		const data = await res.json();
 		setResponse(data.message);
 	}
+
+	// const record = async () => {
+	// 	state.isLoading = true;
+
+	// 	if (this.state.isRecording) {
+	// 		const blob = await recorder.stopRecording();
+  //     this.setState({
+  //       isLoading: false,
+  //       isRecording: false,
+  //       recordings: this.state.recordings.concat(URL.createObjectURL(blob))
+  //     });
+	// 	} else {
+	// 		try {
+  //       await recorder.initAudio();
+  //       await recorder.initWorker();
+  //       recorder.startRecording();
+  //       this.setState({ isLoading: false, isRecording: true });
+  //     } catch (e) {
+  //       console.error(e);
+  //       this.setState({ isLoading: false });
+  //     }
+	// 	}
+
+	// }
 
   return (
     <>
@@ -59,6 +94,19 @@ export default function Home() {
 					)
 				}
 				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
+
+				{/* <div className="recordings">
+					<button disabled={isLoading} onClick={this.record}>
+						{isRecording ? "Stop" : "Record"}
+					</button>
+					<ul style={{ listStyle: "none", padding: 0 }}>
+						{recordings.map(url => (
+							<li key={url}>
+								<audio src={url} controls />
+							</li>
+						))}
+					</ul>
+				</div> */}
       </main>
     </>
   )
