@@ -39,8 +39,8 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
+				{user ? user.name : null}
 				<p>{response}</p>
-				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
 				{user ?
 					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
 						(<form onSubmit={handleSubmit}>
@@ -58,6 +58,7 @@ export default function Home() {
 						</div>
 					)
 				}
+				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
       </main>
     </>
   )
