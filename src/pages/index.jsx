@@ -41,20 +41,23 @@ export default function Home() {
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
 				<p>{response}</p>
-				{console.log('user', user)}
+				{/* {console.log('user', user)} */}
 				{user ?
-					(<form onSubmit={handleSubmit}>
-						<div className="upload-image">
-							<input type="text" id="text" name="text"/>
-							<button type="submit">Send</button>
-						</div>
-					</form>)
-					: user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ? (
+					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
+						(<form onSubmit={handleSubmit}>
+							<div className="upload-image">
+								<input type="text" id="text" name="text"/>
+								<button type="submit">Send</button>
+							</div>
+						</form>)
+						: <div>Your are not allowed, if you have some comment ... email to juan@artmelon.me</div>
+					)
+					: (
 						<div>
 							<input type="text" id="text" name="text"/>
 							<Link href="/api/auth/login"><button>Send</button></Link>
 						</div>
-					) : <div>Not allowed, if you have some comment ... email to juan@artmelon.me</div>
+					)
 				}
       </main>
     </>
