@@ -1,7 +1,8 @@
+import styles from '@/styles/Home.module.css'
+import { Inter } from '@next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client';
 
@@ -50,7 +51,7 @@ export default function Home() {
 					: (
 						<div>
 							<input type="text" id="text" name="text"/>
-							<button href="/api/auth/login">Send</button>
+							<Link href="/api/auth/login">Send</Link>
 						</div>
 					)
 				}
