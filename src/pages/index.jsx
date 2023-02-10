@@ -43,6 +43,7 @@ export default function Home() {
 				<p>{response}</p>
 				{/* {console.log('user', user)} */}
 				{user ?
+					(<Link href="/api/auth/logout">Logout</Link>)
 					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
 						(<form onSubmit={handleSubmit}>
 							<div className="upload-image">
