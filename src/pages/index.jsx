@@ -39,7 +39,7 @@ export default function Home() {
 				<h1>Your personal assistant</h1>
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-				{user ? user.name : null}
+				{user ? user.email : null}
 				<p>{response}</p>
 				{user ?
 					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
