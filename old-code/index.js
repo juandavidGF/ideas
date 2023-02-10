@@ -30,8 +30,6 @@ async function handleSubmit() {
 
 	res2 = await response.json();
 
-	console.log('front#res2', res2);
-
 	document.getElementById('prediction').innerText = res2.message;
 
 }
