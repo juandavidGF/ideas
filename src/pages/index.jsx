@@ -42,8 +42,8 @@ export default function Home() {
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
 				<p>{response}</p>
 				{/* {console.log('user', user)} */}
+				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
 				{user ?
-					(<Link href="/api/auth/logout">Logout</Link>)
 					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
 						(<form onSubmit={handleSubmit}>
 							<div className="upload-image">
