@@ -42,6 +42,7 @@ export default function Home() {
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
 				<p>{response}</p>
 				{/* {console.log('user', user)} */}
+				{process.env.NEXT_PUBLIC_ALLOWED_USER}
 				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
 				{user ?
 					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
@@ -51,7 +52,7 @@ export default function Home() {
 								<button type="submit">Send</button>
 							</div>
 						</form>)
-						: <div>Your are not allowed, if you have some comment ... email to juan@artmelon.me</div>
+						: <div>Your are not allowed, if you have some comment ... email juan@artmelon.me</div>
 					)
 					: (
 						<div>
