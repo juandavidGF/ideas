@@ -41,6 +41,7 @@ export default function Home() {
 				<p>Connect to different channels, whatsapp, slack</p>
 				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
 				<p>{response}</p>
+				{console.log('user', user)}
 				{user ?
 					(<form onSubmit={handleSubmit}>
 						<div className="upload-image">
