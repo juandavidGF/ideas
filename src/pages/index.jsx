@@ -49,12 +49,12 @@ export default function Home() {
 							<button type="submit">Send</button>
 						</div>
 					</form>)
-					: (
+					: user.email === process.env.NEXT_PUBLIC_ALLOWED_USER ? (
 						<div>
 							<input type="text" id="text" name="text"/>
 							<Link href="/api/auth/login"><button>Send</button></Link>
 						</div>
-					)
+					) : <div>Not allowed, if you have some comment ... email to juan@artmelon.me</div>
 				}
       </main>
     </>
