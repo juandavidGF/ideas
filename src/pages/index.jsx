@@ -29,15 +29,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-				<h1>Get Hacker News  fast</h1>
-				<p>You miss important information because you don&apost enough time to review all the HN posts</p>
-				<p>Be updated is key to make you and your Bussines more competitive</p>
-				<p>We give to you daily summarize of HN and another sources of information</p><br/>
-				<form onSubmit={handleSubmit} class="suscription">
-					<p>Enter your email to suscribe</p>
-					<input type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-					<button type="submit">suscribe</button>
-				</form>
+				<div className='content'>
+					<h1>Get Hacker News  fast</h1>
+					<p>You miss important information because you don&apost enough time to review all the HN posts</p>
+					<p>Be updated is key to make you and your Bussines more competitive</p>
+					<p>We give to you daily summarize of HN and another sources of information</p><br/>
+					<form onSubmit={handleSubmit} class="suscription">
+						<p>Enter your email to suscribe</p>
+						<input type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+						<button type="submit">suscribe</button>
+					</form>
+				</div>
       </main>
     </>
   )
