@@ -35,9 +35,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
 				<div className='content'>
-					<h1>Get Hacker News and Artificial Intelligence news faster</h1>
-					<p>You dont have enough time to read all the AI and HN news</p>
+					<h1>Get up-to-date Hacker News and Artificial Intelligence news faster</h1>
 					<p>You lost great opportunities to be more competitive in your business</p>
+					<p>Simplify your news intake with our daily insights and summaries</p>
 					<p style={{color: "#D2691E"}}>We give you daily insights and summaries of the most important topics in AI and HN</p>
 					<br/><form onSubmit={handleSubmit} class="suscription">
 						<p>Enter your email to suscribe</p>
