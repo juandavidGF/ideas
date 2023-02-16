@@ -35,7 +35,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
 				<div className='content'>
-					<h1>Get Hacker News and Artificial Intelligent news faster</h1>
+					<h1>Get Hacker News and Artificial Intelligence news faster</h1>
 					<p>You dont have enough time to read all the AI and HN news</p>
 					<p>You lost great opportunities to be more competitive in your business</p>
 					<p>We give you daily insights and summaries of the most important AI and HN topics</p>
