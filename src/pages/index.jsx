@@ -19,8 +19,17 @@ export default function Home() {
 				body: JSON.stringify({ email: email }),
 			});
 			const data = await res.json();
+			if(data.success === 'Ok') {
+				document.getElementById('status').style.color  = "green"
+				document.getElementById('status').innerHTML = 'Subscription successful';
+			} else {
+				document.getElementById('status').style.color  = "red"
+				document.getElementById('status').innerHTML = 'Error';
+			}
 		} catch (error) {
 			console.log(error)
+			document.getElementById('status').style.color  = "red"
+			document.getElementById('status').innerHTML = 'Error';
 		}
 		e.target.email.value = '';
 	}
@@ -43,6 +52,7 @@ export default function Home() {
 						<p>Enter your email to suscribe</p>
 						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
 						<button className={styles.suscribe} type="submit">suscribe</button>
+						<div id='status'></div>
 					</form><br/>
 					<p><u>Price: 4 USD/month</u></p>
 					<p>You can select the Language of your preference</p>
