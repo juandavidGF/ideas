@@ -39,10 +39,7 @@ export default function Home() {
 						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
 						<button className={styles.suscribe} type="submit">suscribe</button>
 					</form><br/>
-					<div className='price'>
-						<h3>Price</h3>
-						<p>4USD/month</p>
-					</div>
+					<p><u>Price: 4 USD/month</u></p>
 				</div>
       </main>
     </>
