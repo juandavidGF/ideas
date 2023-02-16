@@ -30,8 +30,8 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
 				<div className='content'>
-					<h1>Get Hacker News  fast</h1>
-					<p>You miss important information because you dont have enough time to review all the HN posts</p>
+					<h1>Get Hacker News and Artificial Intelligent news faster</h1>
+					<p>You miss important information because you dont have enough time to review all the HN posts and more</p>
 					<p>Be updated is key to make you and your Bussines more competitive</p>
 					<p>We give to you daily summarize of HN and another sources of information</p><br/>
 					<form onSubmit={handleSubmit} class="suscription">
