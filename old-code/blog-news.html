@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jd-assistant</title>
+	<style>
+		.content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			width: 100vw;
+			background-color: #f5f5f5;
+		}
+		input {
+			padding: 5px;
+			border-radius: 5px;
+			border: 1px;
+		}
+		button {
+			padding: 5px;
+			background-color: #f5f5f5;
+			border: 1px solid #000;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<h1>Get Hacker News  fast</h1>
+		<p>You miss important information because you don't enough time to review all the HN posts</p>
+		<p>Be updated is key to make you and your Bussines more competitive</p>
+		<p>We give to you daily summarize of HN and another sources of information</p><br/>
+		<!-- <p>Just enter the url of the post and we will summarize it for you</p> -->
+		<form id="suscribe" class="suscription">
+			<p>Enter your email to suscribe</p>
+			<input type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+			<button type="submit">suscribe</button>
+		</form>
+	</div>
+	<script>
+		const form = document.getElementById("suscribe");
+
+		const handleSubmit = async (e) => {
+			e.preventDefault();
+			const email = document.getElementById('email').value
+			const headers = {
+				'Access-Control-Allow-Headers': 'Content-Type',
+				'Access-Control-Allow-Origin':'*',
+				'Access-Control-Allow-Methods':'*'
+			}
+			const data = {
+				email: email
+			}
+
+			const response = await fetch('api/suscripter', {
+				method: 'POST', // *GET, POST, PUT, DELETE, etc.
+				mode: 'cors', // no-cors, *cors, same-origin
+				cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+				credentials: 'same-origin', // include, *same-origin, omit
+				headers: {
+					'Content-Type': 'application/json'
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				redirect: 'follow', // manual, *follow, error
+				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+				body: JSON.stringify(data) // body data type must match "Content-Type" header
+			});
+
+			res2 = await response.json();
+			console.log(res2)
+		}
+
+		form.addEventListener("submit", handleSubmit, true);
+	</script>
+</body>
+</html>

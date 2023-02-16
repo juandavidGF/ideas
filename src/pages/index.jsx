@@ -1,66 +1,23 @@
 import styles from '@/styles/Home.module.css'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { useUser } from '@auth0/nextjs-auth0/client';
-import vmsg from "vmsg";
 
 const inter = Inter({ subsets: ['latin'] })
 
-// const recorder = new vmsg.Recorder({
-//   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm"
-// });
-
 export default function Home() {
-
-	const [response, setResponse] = useState();
-	const { user, error, isLoading } = useUser();
-
-	// const [state, setState] = useState({
-	// 	isLoading: false,
-	// 	isRecording: false,
-	// 	recordings: []
-	// });
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const text = e.target.text.value;
-		const res = await fetch('/api/davinci', {
+		const email = e.target.email.value;
+		const res = await fetch('/api/suscripter', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ prompt: text }),
+			body: JSON.stringify({ email: email }),
 		});
 		const data = await res.json();
-		setResponse(data.message);
 	}
-
-	// const record = async () => {
-	// 	state.isLoading = true;
-
-	// 	if (this.state.isRecording) {
-	// 		const blob = await recorder.stopRecording();
-  //     this.setState({
-  //       isLoading: false,
-  //       isRecording: false,
-  //       recordings: this.state.recordings.concat(URL.createObjectURL(blob))
-  //     });
-	// 	} else {
-	// 		try {
-  //       await recorder.initAudio();
-  //       await recorder.initWorker();
-  //       recorder.startRecording();
-  //       this.setState({ isLoading: false, isRecording: true });
-  //     } catch (e) {
-  //       console.error(e);
-  //       this.setState({ isLoading: false });
-  //     }
-	// 	}
-
-	// }
 
   return (
     <>
@@ -71,42 +28,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-				<h1>Your personal assistant</h1>
-				<p>Connect to different channels, whatsapp, slack</p>
-				<p>teach new acknowledgment to your assistant based in text, audio, video</p><br/>
-				{user ? user.email : null}
-				<p>{response}</p>
-				{user ?
-					(user?.email === process.env.NEXT_PUBLIC_ALLOWED_USER ?
-						(<form onSubmit={handleSubmit}>
-							<div className="upload-image">
-								<input type="text" id="text" name="text"/>
-								<button type="submit">Send</button>
-							</div>
-						</form>)
-						: <div>Your are not allowed, if you have some comment ... email juan@artmelon.me</div>
-					)
-					: (
-						<div>
-							<input type="text" id="text" name="text"/>
-							<Link href="/api/auth/login"><button>Send</button></Link>
-						</div>
-					)
-				}
-				{user ? (<Link href="/api/auth/logout">Logout</Link>) : null}
-
-				{/* <div className="recordings">
-					<button disabled={isLoading} onClick={this.record}>
-						{isRecording ? "Stop" : "Record"}
-					</button>
-					<ul style={{ listStyle: "none", padding: 0 }}>
-						{recordings.map(url => (
-							<li key={url}>
-								<audio src={url} controls />
-							</li>
-						))}
-					</ul>
-				</div> */}
+				<h1>Get Hacker News  fast</h1>
+				<p>You miss important information because you don't enough time to review all the HN posts</p>
+				<p>Be updated is key to make you and your Bussines more competitive</p>
+				<p>We give to you daily summarize of HN and another sources of information</p><br/>
+				<form onSubmit={handleSubmit} class="suscription">
+					<p>Enter your email to suscribe</p>
+					<input type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+					<button type="submit">suscribe</button>
+				</form>
       </main>
     </>
   )
