@@ -8,10 +8,11 @@
 	background-color: #f5f5f5;
 }
 .email {
-	padding: 5px;
+	padding: 5px 30px;
 	border-radius: 5px;
 	border: 1px;
 	margin-right: 5px;
+	border: 1px solid black;
 }
 .suscribe {
 	padding: 5px;
