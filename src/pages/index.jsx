@@ -36,9 +36,9 @@ export default function Home() {
       <main className={styles.main}>
 				<div className='content'>
 					<h1>Get Hacker News and Artificial Intelligent news faster</h1>
+					<p>We give you insights and summaries of the most important AI and HN news</p><br/>
 					<p>You dont have enough time to read all the AI and HN news</p>
 					<p>You lost great opportunities to be more competitive in your business</p>
-					<p>We give you summaries of the latest news</p><br/>
 					<form onSubmit={handleSubmit} class="suscription">
 						<p>Enter your email to suscribe</p>
 						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
