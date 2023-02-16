@@ -31,14 +31,18 @@ export default function Home() {
       <main className={styles.main}>
 				<div className='content'>
 					<h1>Get Hacker News and Artificial Intelligent news faster</h1>
-					<p>You miss important information because you dont have enough time to review all the HN posts and more</p>
-					<p>Be updated is key to make you and your Bussines more competitive</p>
-					<p>We give to you daily summarize of HN and another sources of information</p><br/>
+					<p>We dont have enought time to read all the AI and HN news</p>
+					<p>We lost great oportunities to be more competitive in our bussines</p>
+					<p>We give you summaries of the latest news</p><br/>
 					<form onSubmit={handleSubmit} class="suscription">
 						<p>Enter your email to suscribe</p>
 						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
 						<button className={styles.suscribe} type="submit">suscribe</button>
-					</form>
+					</form><br/>
+					<div className='price'>
+						<h3>Price</h3>
+						<p>4USD/month</p>
+					</div>
 				</div>
       </main>
     </>
