@@ -17,6 +17,7 @@ export default function Home() {
 			body: JSON.stringify({ email: email }),
 		});
 		const data = await res.json();
+		console.log(data);
 	}
 
   return (
