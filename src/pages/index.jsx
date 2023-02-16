@@ -36,8 +36,8 @@ export default function Home() {
 					<p>We give to you daily summarize of HN and another sources of information</p><br/>
 					<form onSubmit={handleSubmit} class="suscription">
 						<p>Enter your email to suscribe</p>
-						<input type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-						<button type="submit">suscribe</button>
+						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+						<button className={styles.suscribe} type="submit">suscribe</button>
 					</form>
 				</div>
       </main>
