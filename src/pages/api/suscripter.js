@@ -4,7 +4,7 @@ sgMail.setApiKey(process.env.API_KEY_SENDGRID);
 export default async function handler(req, res) {
 
 	if(req.method == "POST") {
-		const { email} = req.body;
+		const { email } = req.body;
 
 		const txt = `${email} have suscribed to the HN Digest newsletter`
 		const subject = `HN - fast  ${email}`;
@@ -16,6 +16,7 @@ export default async function handler(req, res) {
 			text: txt,
 			html: `<strong>${txt}</strong>`,
 		}
+		let response = null;
 
 		try {
 			response = await sgMail.send(msg);
@@ -23,7 +24,8 @@ export default async function handler(req, res) {
 			console.error(error);
 		}
 
-		res.status(200).json(response);
+		res.status(200).json({ success: 'Ok' });
+	} else {
+		res.status(200).json({ name: 'John Doe' })
 	}
-  res.status(200).json({ name: 'John Doe' })
 }

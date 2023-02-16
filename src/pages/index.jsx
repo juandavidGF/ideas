@@ -9,15 +9,20 @@ export default function Home() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const email = e.target.email.value;
-		const res = await fetch('/api/suscripter', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email: email }),
-		});
-		const data = await res.json();
-		console.log(data);
+		if (!email) return;
+		try {
+			const res = await fetch('/api/suscripter', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email: email }),
+			});
+			const data = await res.json();
+		} catch (error) {
+			console.log(error)
+		}
+		e.target.email.value = '';
 	}
 
   return (
