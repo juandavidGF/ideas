@@ -37,7 +37,7 @@ export default function Home() {
 				<div className='content'>
 					<h1>Get Hacker News and Artificial Intelligent news faster</h1>
 					<p>You dont have enough time to read all the AI and HN news</p>
-					<p>You lost great opportunities to be more competitive in our business</p>
+					<p>You lost great opportunities to be more competitive in your business</p>
 					<p>We give you summaries of the latest news</p><br/>
 					<form onSubmit={handleSubmit} class="suscription">
 						<p>Enter your email to suscribe</p>
