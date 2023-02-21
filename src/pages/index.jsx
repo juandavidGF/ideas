@@ -30,15 +30,15 @@ export default function Home({
 	comments,
 }) {
 
-	console.log("isConnected:", isConnected);
-	console.log("comments:", comments);
+	// console.log("isConnected:", isConnected);
+	// console.log("comments:", comments);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const email = e.target.email.value;
 		if (!email) return;
 		try {
-			const res = await fetch('/api/suscripter', {
+			const res = await fetch('/api/new-suscripter', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
