@@ -1,6 +1,7 @@
 import styles from '@/styles/Home.module.css'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
+import clientPromise from '../../lib/mongodb'
 
 const inter = Inter({ subsets: ['latin'] })
 
