@@ -3,9 +3,35 @@ import { Inter } from '@next/font/google'
 import Head from 'next/head'
 import clientPromise from '../../lib/mongodb'
 
+export async function getServerSideProps(context) {
+	try {
+		const client = await clientPromise
+		const db = await client.db('sample_mflix');
+		const collection = db.collection('comments');
+		const comments = await collection.find({}).toArray()
+		return {
+			props: {
+				isConnected: true,
+				comments: JSON.parse(JSON.stringify(comments)),
+			},
+		}
+	} catch (err) {
+		console.error("server side err:", err);
+    return {
+      props: { isConnected: false },
+    }
+	}
+}
+
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({
+	isConnected,
+	comments,
+}) {
+
+	console.log("isConnected:", isConnected);
+	console.log("comments:", comments);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
