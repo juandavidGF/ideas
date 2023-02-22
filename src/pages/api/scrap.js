@@ -1,7 +1,8 @@
 import axios from 'axios';
-import clientPromise from '../../../lib/mongodb'
+import clientPromise from '../../../lib/mongodb';
+import summarize from '../../../lib/summarize';
 
-const API_KEY = process.env["WEB_SCRAPING_API_KEY"]
+const API_KEY = process.env["WEB_SCRAPING_API_KEY"];
 const HOSTNAME = 'https://api.webscrapingapi.com';
 
 const extract_rules_hn = {
@@ -1110,6 +1111,7 @@ export default async function handler(req, res) {
 		// 		console.log('true | success');
 		// 		dataPages.push({
 		// 			title: name,
+		// 			link: link,
 		// 			page: page.p,
 		// 		});
 		// 	} else {
@@ -1127,9 +1129,14 @@ export default async function handler(req, res) {
 
 		const data = dataPagesMockData;
 
-		//Con esta data, ahora tengo que llamar una función que resuma todo esto.
+		//TODO Con esta data, ahora tengo que llamar una función que resuma todo esto.
+		const maxSentenceCount = 3;
+		const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page))
+		// const summary = doSummary(data.data, maxSentenceCount);
+		const summary = await summarize(pagesConcat, maxSentenceCount);
+		console.log('summary', summary);
 
-		res.status(200).json(data)
+		res.status(200).json(summary);
 
 	} catch (error) {
 		console.error("handler#err:", error);
@@ -1190,3 +1197,18 @@ async function scrapPage(page_url, extract_rules) {
 		return null;
 	}
 };
+
+async function doSummary(pages, maxSentenceCount) {
+	let text = '';
+	let summary = [];
+	for(let i in pages) {
+		text = [`title: ${pages[i].title}. page: `.concat(pages[i].page)]
+		console.log(i, text);
+		console.log(`sumarizing: ${pages[i].title}`)
+		const result = await summarize(text, maxSentenceCount);
+		summary.push(result);
+		if(i > 1) break;
+	}
+	console.log('doSummary#summary', summary);
+	return summary;
+}
