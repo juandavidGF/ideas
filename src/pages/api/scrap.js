@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 			}
 		});
 
-		// await collection.insertOne({nameLinks: pagesHN})
+		await collection.insertOne({created_at: Date.now(), pages: pagesHN})
 
 		let dataPages = [];
 		let page = '';
@@ -71,13 +71,13 @@ export default async function handler(req, res) {
 		}
 
 		const data = {
-			created_at: new Date(),
+			created_at: Date.now(),
 			data: dataPages,
 		}
 
 		// const data = dataScrapedMock;
 
-		// await collection.insertOne({...data})
+		await collection.insertOne({...data})
 
 		// const data = dataPagesMockData;
 

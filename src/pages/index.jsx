@@ -8,7 +8,20 @@ export async function getServerSideProps(context) {
 		const client = await clientPromise
 		const db = await client.db(process.env.MONGO_DB_NEWS);
 		const collection = db.collection(process.env.MONGO_COLLECTION_HN);
-		const news = await collection.find({}).toArray()
+
+		const todayZero = new Date();
+		todayZero.setHours(0);
+		todayZero.setMinutes(0);
+		todayZero.setSeconds(0);
+		const todayZeroTime = todayZero.getTime();
+
+
+		const news = await collection.find({ created_at: { $gt: todayZeroTime }}).toArray()
+
+		console.log(news);
+
+		console.log('news: ', news)
+
 		return {
 			props: {
 				isConnected: true,
