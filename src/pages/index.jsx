@@ -1,50 +1,13 @@
 import styles from '@/styles/Home.module.css'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
-import clientPromise from '../../lib/mongodb'
-
-export async function getServerSideProps(context) {
-	try {
-		const client = await clientPromise
-		const db = await client.db(process.env.MONGO_DB_NEWS);
-		const collection = db.collection(process.env.MONGO_COLLECTION_HN);
-
-		const todayZero = new Date();
-		todayZero.setHours(0);
-		todayZero.setMinutes(0);
-		todayZero.setSeconds(0);
-		const todayZeroTime = todayZero.getTime();
-
-
-		const news = await collection.find({ created_at: { $gt: todayZeroTime }}).toArray()
-
-		console.log(news);
-
-		console.log('news: ', news)
-
-		return {
-			props: {
-				isConnected: true,
-				news: JSON.parse(JSON.stringify(news)),
-			},
-		}
-	} catch (err) {
-		console.error("server side err:", err);
-    return {
-      props: { isConnected: false },
-    }
-	}
-}
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({
 	isConnected,
-	comments,
+	news,
 }) {
-
-	// console.log("isConnected:", isConnected);
-	// console.log("comments:", comments);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
