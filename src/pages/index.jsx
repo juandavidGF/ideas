@@ -6,13 +6,13 @@ import clientPromise from '../../lib/mongodb'
 export async function getServerSideProps(context) {
 	try {
 		const client = await clientPromise
-		const db = await client.db('sample_mflix');
-		const collection = db.collection('comments');
-		const comments = await collection.find({}).toArray()
+		const db = await client.db(process.env.MONGO_DB_NEWS);
+		const collection = db.collection(process.env.MONGO_COLLECTION_HN);
+		const news = await collection.find({}).toArray()
 		return {
 			props: {
 				isConnected: true,
-				comments: JSON.parse(JSON.stringify(comments)),
+				news: JSON.parse(JSON.stringify(news)),
 			},
 		}
 	} catch (err) {
