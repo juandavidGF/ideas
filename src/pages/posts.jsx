@@ -80,29 +80,30 @@ export default function Home({
       <main>
 				<div className={styles.suscription}>
 					<form onSubmit={handleSubmit} className={styles.formClass}>
-						{/* <p>Enter your email to suscribe</p> */}
 						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
 						<button className={styles.suscribe} type="submit">suscribe</button>
 						<div id='status'></div>
 					</form>
 				</div>
-				<div className='content'>
-					{news[0].data.map((item, index) => {
-						// console.log('nes decomposition: ', index, item)
-						return (
-							<div key={index}>
-								<h3>{index+1}. <a href={item.link}>{item.title}</a></h3>
-								<ul>
-									{item.summary.split('.,').map((sentence, index) => {
-										return (
-											<li key={index}>{sentence}</li>
-										)
-									})}
-								</ul>
-							</div>
-						)
-					})}
-				</div>
+				{isConnected ?
+					<div className='content'>
+						{news[0].data.map((item, index) => {
+							return (
+								<div key={index}>
+									<h3>{index+1}. <a href={item.link}>{item.title}</a></h3>
+									<ul>
+										{item.summary.split('.,').map((sentence, index) => {
+											return (
+												<li key={index}>{sentence}</li>
+											)
+										})}
+									</ul>
+								</div>
+							)
+						})}
+					</div>
+					: <h1>Today's AI Posts (offline)</h1>
+				}
       </main>
     </>
   )
