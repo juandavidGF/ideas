@@ -1142,7 +1142,7 @@ export default async function handler(req, res) {
 			// if(i > 2) break;
 		}
 
-		await collection.insertOne({summary: summary});
+		await collection.insertOne({summary: data});
 
 		// console.log('summary', summary);
 
