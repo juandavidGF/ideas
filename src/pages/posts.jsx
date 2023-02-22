@@ -58,9 +58,14 @@ export default function Home({
 						// console.log('nes decomposition: ', index, item)
 						return (
 							<div key={index}>
-								<h3>{item.title}</h3>
-								<p>{index+1}</p>
-								<p>{item.summary}</p>
+								<h3>{index+1}. <a href={item.link}>{item.title}</a></h3>
+								<ul>
+									{item.summary.split('.,').map((sentence, index) => {
+										return (
+											<li key={index}>{sentence}</li>
+										)
+									})}
+								</ul>
 							</div>
 						)
 					})}
