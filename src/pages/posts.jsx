@@ -102,7 +102,7 @@ export default function Home({
 							)
 						})}
 					</div>
-					: <h1>Today's AI Posts (offline)</h1>
+					: <h1>Today&apos;s AI Posts (offline)</h1>
 				}
       </main>
     </>
