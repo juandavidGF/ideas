@@ -266,7 +266,7 @@ export default async function handler(req, res) {
 			const { name, link } = pagesHN[i];
 			console.log('scrapHNs#scraping: ', name, link);
 			page = await scrapPage(link, extract_rules_page);
-			if(page) {
+			if(page && page.p) {
 				console.log('true | success');
 				dataPages.push({
 					title: name,
