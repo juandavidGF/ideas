@@ -1130,13 +1130,23 @@ export default async function handler(req, res) {
 		const data = dataPagesMockData;
 
 		//TODO Con esta data, ahora tengo que llamar una función que resuma todo esto.
-		const maxSentenceCount = 3;
-		const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page))
-		// const summary = doSummary(data.data, maxSentenceCount);
-		const summary = await summarize(pagesConcat, maxSentenceCount);
-		console.log('summary', summary);
+		const maxSentenceCount = 2;
+		const summary = [];
+		let resp = '';
+		const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page));
+		for(let i in pagesConcat) {
+			resp = await summarize([pagesConcat[i]], maxSentenceCount);
+			data.data[i]['summary'] = resp;
+			// summary.push(resp);
+			console.log(i)
+			// if(i > 2) break;
+		}
 
-		res.status(200).json(summary);
+		await collection.insertOne({summary: summary});
+
+		// console.log('summary', summary);
+
+		res.status(200).json(data);
 
 	} catch (error) {
 		console.error("handler#err:", error);
