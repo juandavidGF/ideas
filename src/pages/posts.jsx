@@ -41,8 +41,33 @@ export default function Home({
 	news,
 }) {
 
-	// console.log("isConnected: ", isConnected);
-	// console.log("news: ", news[0]);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const email = e.target.email.value;
+		if (!email) return;
+		try {
+			const res = await fetch('/api/new-suscripter', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email: email }),
+			});
+			const data = await res.json();
+			if(data.success === 'Ok') {
+				document.getElementById('status').style.color  = "green"
+				document.getElementById('status').innerHTML = 'Subscription successful';
+			} else {
+				document.getElementById('status').style.color  = "red"
+				document.getElementById('status').innerHTML = 'Error';
+			}
+		} catch (error) {
+			console.log(error)
+			document.getElementById('status').style.color  = "red"
+			document.getElementById('status').innerHTML = 'Error';
+		}
+		e.target.email.value = '';
+	}
 
   return (
     <>
@@ -53,6 +78,14 @@ export default function Home({
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <main>
+				<div className={styles.suscription}>
+					<form onSubmit={handleSubmit} className={styles.formClass}>
+						{/* <p>Enter your email to suscribe</p> */}
+						<input className={styles.email} type="text" id="email" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+						<button className={styles.suscribe} type="submit">suscribe</button>
+						<div id='status'></div>
+					</form>
+				</div>
 				<div className='content'>
 					{news[0].data.map((item, index) => {
 						// console.log('nes decomposition: ', index, item)

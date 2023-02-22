@@ -14,6 +14,19 @@
 	margin-right: 5px;
 	border: 1px solid black;
 }
+.suscription {
+	position: fixed;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+.form-class {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .suscribe {
 	padding: 5px 10px;
 	color: white;
