@@ -36,9 +36,7 @@ export async function getServerSideProps(context) {
 
 		// TODO si news es undefindated, llamar a la serverless function scraped
 		if(news === undefined) {
-			let res = await fetch(`${baseUrl}/api/scrap`);
-			res = await res.json();
-			console.log('res', res);
+			let res =  fetch(`${baseUrl}/api/scrap`);
 		}
 
 		return {
