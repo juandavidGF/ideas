@@ -28,6 +28,8 @@ export async function getServerSideProps(context) {
 		}).toArray()
 		news = news[0];
 
+		// TODO si news es undefindated, llamar a la serverless function scraped
+
 		return {
 			props: {
 				isConnected: true,
