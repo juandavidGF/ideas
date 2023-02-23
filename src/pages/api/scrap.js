@@ -38,20 +38,23 @@ export default async function handler(req, res) {
 
 	if(req.method === 'GET') {}
 
-	//TODO if exist scrapHNs en DB skip, else scrap
-	const todayZero = new Date();
-	todayZero.setHours(0);
-	todayZero.setMinutes(0);
-	todayZero.setSeconds(0);
-	const todayZeroTime = todayZero.getTime();
-
-	const nameLinks = await collection.find({
-		created_at: { $gt: todayZeroTime },
-		type: "nameLinks",
-	}).toArray()
-
 	try {
-		if(nameLinks && nameLinks.length === 0) {
+		//TODO
+		// update time ...
+		const todayZero = new Date();
+		todayZero.setHours(1);
+		todayZero.setMinutes(0);
+		todayZero.setSeconds(0);
+		const todayZeroTime = todayZero.getTime();
+
+		let nameLinks = await collection.find({
+			created_at: { $gt: todayZeroTime },
+			type: "nameLinks",
+		}).toArray()
+		nameLinks = nameLinks[0];
+
+		if(nameLinks === undefined) {
+			console.log('flag#1')
 			const hnUlr = 'https://news.ycombinator.com/news?p=1';
 			const scrapHNs = await scrapPage(hnUlr, extract_rules_hn);
 
@@ -62,55 +65,88 @@ export default async function handler(req, res) {
 				}
 			});
 
-			await collection.insertOne({created_at: Date.now(), type: "nameLinks", pages: pagesHN});
+			nameLinks = {
+				created_at: Date.now(),
+				type: "nameLinks",
+				pages: pagesHN
+			}
+
+			await collection.insertOne(nameLinks);
 		}
 
-		// let dataPages = [];
-		// let page = '';
-		// for(let i in pagesHN) {
-		// 	const { name, link } = pagesHN[i];
-		// 	console.log('scrapHNs#scraping: ', name, link);
-		// 	page = await scrapPage(link, extract_rules_page);
-		// 	if(page && page.p) {
-		// 		console.log('true | success');
-		// 		dataPages.push({
-		// 			title: name,
-		// 			link: link,
-		// 			page: page.p,
-		// 		});
-		// 	} else {
-		// 		console.log(page, name, link)
-		// 	}
-		// 	// if(i > 5) break;
-		// }
+		let pagesHNFound = await collection.find({
+			created_at: { $gt: todayZeroTime },
+			type: "pages",
+		}).toArray()
 
-		// const data = {
-		// 	created_at: Date.now(),
-		// 	type: "pages",
-		// 	data: dataPages,
-		// }
+		let pages = pagesHNFound[0];
 
-		// // const data = dataScrapedMock;
+		if(pages === undefined) {
+			console.log('flag#2')
+			let dataPages = [];
+			let page = '';
+			for(let i in nameLinks.pages) {
+				const { name, link } = nameLinks.pages[i];
+				console.log('scrapHNs#scraping: ', name, link);
+				page = await scrapPage(link, extract_rules_page);
+				if(page && page.p) {
+					console.log('true | success');
+					dataPages.push({
+						title: name,
+						link: link,
+						page: page.p,
+					});
+				} else {
+					console.log(page, name, link)
+				}
+				// if(i > 5) break;
+			}
 
-		// await collection.insertOne({...data})
+			pages = {
+				created_at: Date.now(),
+				type: "pages",
+				scraped: dataPages,
+			}
 
-		// // const data = dataPagesMockData;
+			await collection.insertOne(pages)
+		}
 
-		// //TODO Con esta data, ahora tengo que llamar una función que resuma todo esto.
-		// const maxSentenceCount = 2;
-		// // const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page));
-		// data['type'] = 'summary';
-		// let pagesConcat = '';
-		// for(let i in data.data) {
-		// 	pagesConcat = `title: ${data.data[i].title}. page: `.concat(data.data[i].page);
-		// 	data.data[i]['summary'] = await summarize([pagesConcat], maxSentenceCount);
-		// 	console.log(i)
-		// 	// if(i > 2) break;
-		// }
+		let summaries = await collection.find({
+			created_at: { $gt: todayZeroTime },
+			type: "summary",
+		}).toArray()
+		summaries = summaries[0];
 
-		// await collection.insertOne(data);
+		if(summaries === undefined) {
+			console.log('flag#3');
+			const maxSentenceCount = 2;
+			let pagesConcat = '';
+			let summariesChunk = '';
+			let summariesArray = [];
+			summaries = {
+				created_at: Date.now(),
+				type: "summary",
+				summaries: [],
+			}
+			for(let i in pages.scraped) {
+				console.log(i)
+				pagesConcat = `title: ${pages.scraped[i].title}. page: `.concat(pages.scraped[i].page);
+				summariesChunk = await summarize([pagesConcat], maxSentenceCount);
+				console.log(i, pages.scraped[i].title, summariesChunk)
+				summaries['summaries'].push({
+					title: pages.scraped[i].title,
+					link: pages.scraped[i].link,
+					summary: summariesChunk,
+					scraped: pagesConcat,
+				});
+				// if(i > 2) break;
+			}
 
-		res.status(200).json(nameLinks);
+			await collection.insertOne(summaries);
+		}
+
+
+		res.status(200).json(summaries);
 
 	} catch (error) {
 		console.error("handler#err:", error);
