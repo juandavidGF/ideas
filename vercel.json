@@ -3,14 +3,6 @@
 		{
 			"path": "/api/scrap",
 			"schedule": "0 1 * * *"
-  	},
-		{
-			"path": "/api/scrap",
-			"schedule": "5 1 * * *"
-  	},
-		{
-			"path": "/api/scrap",
-			"schedule": "10 1 * * *"
   	}
 	]
 }
