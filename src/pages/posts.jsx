@@ -17,15 +17,16 @@ export async function getServerSideProps(context) {
 		// maybe the reason dind't work is the time, and in production wait 3m is not possible or some issue related.
 
 		const todayZero = new Date();
-		todayZero.setHours(0);
+		todayZero.setHours(1);
 		todayZero.setMinutes(0);
 		todayZero.setSeconds(0);
 		const todayZeroTime = todayZero.getTime();
 
-		const news = await collection.find({
+		let news = await collection.find({
 			created_at: { $gt: todayZeroTime },
-			"data.0.summary": { $exists: true }
+			"type": "summary"
 		}).toArray()
+		news = news[0];
 
 		return {
 			props: {
@@ -92,9 +93,9 @@ export default function Home({
 						<div id='status'></div>
 					</form>
 				</div>
-				{isConnected ?
+				{isConnected && news !== undefined ?
 					<div className='content'>
-						{news[0].data.map((item, index) => {
+						{news.summaries.map((item, index) => {
 							return (
 								<div key={index}>
 									<h3>{index+1}. <a href={item.link}>{item.title}</a></h3>
