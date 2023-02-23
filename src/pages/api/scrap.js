@@ -38,63 +38,79 @@ export default async function handler(req, res) {
 
 	if(req.method === 'GET') {}
 
+	//TODO if exist scrapHNs en DB skip, else scrap
+	const todayZero = new Date();
+	todayZero.setHours(0);
+	todayZero.setMinutes(0);
+	todayZero.setSeconds(0);
+	const todayZeroTime = todayZero.getTime();
+
+	const nameLinks = await collection.find({
+		created_at: { $gt: todayZeroTime },
+		type: "nameLinks",
+	}).toArray()
+
 	try {
-		const hnUlr = 'https://news.ycombinator.com/news?p=1';
-		const scrapHNs = await scrapPage(hnUlr, extract_rules_hn)
+		if(nameLinks && nameLinks.length === 0) {
+			const hnUlr = 'https://news.ycombinator.com/news?p=1';
+			const scrapHNs = await scrapPage(hnUlr, extract_rules_hn);
 
-		const pagesHN = scrapHNs.title.map((item) => {
-			return {
-				name: item.name[0],
-				link: item.links[0]
-			}
-		});
+			const pagesHN = scrapHNs.title.map((item) => {
+				return {
+					name: item.name[0],
+					link: item.links[0]
+				}
+			});
 
-		await collection.insertOne({created_at: Date.now(), pages: pagesHN})
-
-		let dataPages = [];
-		let page = '';
-		for(let i in pagesHN) {
-			const { name, link } = pagesHN[i];
-			console.log('scrapHNs#scraping: ', name, link);
-			page = await scrapPage(link, extract_rules_page);
-			if(page && page.p) {
-				console.log('true | success');
-				dataPages.push({
-					title: name,
-					link: link,
-					page: page.p,
-				});
-			} else {
-				console.log(page, name, link)
-			}
-			// if(i > 5) break;
+			await collection.insertOne({created_at: Date.now(), type: "nameLinks", pages: pagesHN});
 		}
 
-		const data = {
-			created_at: Date.now(),
-			data: dataPages,
-		}
+		// let dataPages = [];
+		// let page = '';
+		// for(let i in pagesHN) {
+		// 	const { name, link } = pagesHN[i];
+		// 	console.log('scrapHNs#scraping: ', name, link);
+		// 	page = await scrapPage(link, extract_rules_page);
+		// 	if(page && page.p) {
+		// 		console.log('true | success');
+		// 		dataPages.push({
+		// 			title: name,
+		// 			link: link,
+		// 			page: page.p,
+		// 		});
+		// 	} else {
+		// 		console.log(page, name, link)
+		// 	}
+		// 	// if(i > 5) break;
+		// }
 
-		// const data = dataScrapedMock;
+		// const data = {
+		// 	created_at: Date.now(),
+		// 	type: "pages",
+		// 	data: dataPages,
+		// }
 
-		await collection.insertOne({...data})
+		// // const data = dataScrapedMock;
 
-		// const data = dataPagesMockData;
+		// await collection.insertOne({...data})
 
-		//TODO Con esta data, ahora tengo que llamar una función que resuma todo esto.
-		const maxSentenceCount = 2;
-		// const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page));
-		let pagesConcat = '';
-		for(let i in data.data) {
-			pagesConcat = `title: ${data.data[i].title}. page: `.concat(data.data[i].page);
-			data.data[i]['summary'] = await summarize([pagesConcat], maxSentenceCount);
-			console.log(i)
-			// if(i > 2) break;
-		}
+		// // const data = dataPagesMockData;
 
-		await collection.insertOne(data);
+		// //TODO Con esta data, ahora tengo que llamar una función que resuma todo esto.
+		// const maxSentenceCount = 2;
+		// // const pagesConcat = data.data.map(item => `title: ${item.title}. page: `.concat(item.page));
+		// data['type'] = 'summary';
+		// let pagesConcat = '';
+		// for(let i in data.data) {
+		// 	pagesConcat = `title: ${data.data[i].title}. page: `.concat(data.data[i].page);
+		// 	data.data[i]['summary'] = await summarize([pagesConcat], maxSentenceCount);
+		// 	console.log(i)
+		// 	// if(i > 2) break;
+		// }
 
-		res.status(200).json(data);
+		// await collection.insertOne(data);
+
+		res.status(200).json(nameLinks);
 
 	} catch (error) {
 		console.error("handler#err:", error);
