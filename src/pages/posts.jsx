@@ -9,6 +9,13 @@ export async function getServerSideProps(context) {
 		const db = await client.db(process.env.MONGO_DB_NEWS);
 		const collection = db.collection(process.env.MONGO_COLLECTION_HN);
 
+		// TODO
+		// Update time after 00:00
+		// Show day before, if the summaries are not ready.
+		// Potencially call function if are not ready.
+		// or programaticlly call cronJob several times.
+		// maybe the reason dind't work is the time, and in production wait 3m is not possible or some issue related.
+
 		const todayZero = new Date();
 		todayZero.setHours(0);
 		todayZero.setMinutes(0);

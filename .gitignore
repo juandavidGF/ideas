@@ -34,3 +34,5 @@ yarn-error.log*
 .vercel
 
 TODO.md
+
+node-tests.js
