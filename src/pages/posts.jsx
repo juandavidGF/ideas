@@ -4,6 +4,7 @@ import Head from 'next/head'
 import clientPromise from '../../lib/mongodb'
 
 export async function getServerSideProps(context) {
+	console.log('context', context);
 	try {
 		const client = await clientPromise
 		const db = await client.db(process.env.MONGO_DB_NEWS);
@@ -22,6 +23,11 @@ export async function getServerSideProps(context) {
 		todayZero.setSeconds(0);
 		const todayZeroTime = todayZero.getTime();
 
+		console.log('vercel_url', process.env.VERCEL_URL);
+		console.log('AUTH0_BASE_URL', process.env.AUTH0_BASE_URL);
+		const baseUrl = process.env.AUTH0_BASE_URL
+
+
 		let news = await collection.find({
 			created_at: { $gt: todayZeroTime },
 			"type": "summary"
@@ -29,6 +35,11 @@ export async function getServerSideProps(context) {
 		news = news[0];
 
 		// TODO si news es undefindated, llamar a la serverless function scraped
+		if(news === undefined) {
+			let res = await fetch(`${baseUrl}/api/scrap`);
+			res = await res.json();
+			console.log('res', res);
+		}
 
 		return {
 			props: {
@@ -112,7 +123,7 @@ export default function Home({
 							)
 						})}
 					</div>
-					: <h1>Today&apos;s AI Posts (offline)</h1>
+					: <h1>Today&apos;s AI Posts (offline), please come back in some minutes</h1>
 				}
       </main>
     </>

@@ -142,7 +142,7 @@ export default async function handler(req, res) {
 				// if(i > 2) break;
 			}
 
-			await collection.insertOne(summaries);
+			await collection.insertOne({ response: 'success'});
 		}
 
 
