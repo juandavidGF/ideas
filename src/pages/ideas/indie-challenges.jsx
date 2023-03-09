@@ -47,9 +47,10 @@ export default function Indiechallenges() {
 				</button>
 			<main className={styles.main}>
 				<h1>Indie challenges</h1>
-				<p>I am Juan David, I am building my way to be an indepreneur.</p>
-				<p>But I take a long time to make my products, I take the longest path and I get complicated</p>
-				<p>I created this web site to experiment if challenges can motivate us to be more productive, achieve our goals, and learn from others</p>
+				<p>Hi, I’m Juan David. I’m an indiepreneur who loves building products.🚀</p>
+				<p>Challenges can motivate us to be more productive, achieve our goals, and learn faster.👏</p>
+				<p>Are you ready to join me? Let’s do this!💯</p>
+				<p></p>
 				<form onSubmit={handleSuscribe}>
 					{/* <label htmlFor="email">emal: </label> */}
 					<input type="text" id="email" name="email" placeholder='email@example.com' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
