@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from "react"
 import styles from '@/styles/Indiecha.module.css'
 
-export default function indieChallenges() {
+export default function Indiechallenges() {
 
 	const [statusSuscribe, setStatusSuscribe] = useState();
 
