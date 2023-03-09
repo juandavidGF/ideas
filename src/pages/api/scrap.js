@@ -142,11 +142,11 @@ export default async function handler(req, res) {
 				// if(i > 2) break;
 			}
 
-			await collection.insertOne({ response: 'success'});
+			await collection.insertOne(summaries);
 		}
 
 
-		res.status(200).json(summaries);
+		res.status(200).json({ response: 'success'});
 
 	} catch (error) {
 		console.error("handler#err:", error);

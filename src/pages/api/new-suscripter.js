@@ -4,10 +4,13 @@ sgMail.setApiKey(process.env.API_KEY_SENDGRID);
 export default async function handler(req, res) {
 
 	if(req.method == "POST") {
-		const { email } = req.body;
+		const { email, appName } = req.body;
 
-		const txt = `${email} have suscribed to the HN Digest newsletter`
-		const subject = `HN - fast  ${email}`;
+		console.log('handler#email', email);
+		console.log('handler#appName', appName);
+
+		const txt = `${email} have suscribed to ${appName}`
+		const subject = `${appName} | ${email}`;
 
 		const msg = {
 			to: 'juanchoda12@gmail.com', // Recipent
@@ -20,12 +23,13 @@ export default async function handler(req, res) {
 
 		try {
 			response = await sgMail.send(msg);
+			res.status(200).json({ success: 'Ok' });
 		} catch (error) {
 			console.error(error);
+			res.status(500).json({ error: 'Internal server error' });
 		}
 
-		res.status(200).json({ success: 'Ok' });
 	} else {
-		res.status(200).json({ name: 'John Doe' })
+		res.status(400).json({ error: 'Bad request' });
 	}
 }
