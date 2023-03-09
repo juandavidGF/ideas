@@ -41,8 +41,8 @@ export default function Indiechallenges() {
 				{/* <link rel="icon" href="/favicon.ico" /> */}
 			</Head>
 			<button className={styles.twitter}>
-				<Link href="https://twitter.com/dev_graf">
-					@dev_graf
+				<Link href="https://twitter.com/juandavid_gf">
+					@juandavid_gf
 				</Link>
 				</button>
 			<main className={styles.main}>
